@@ -5,17 +5,11 @@ package megabanco;
  * @author Felix Lluis Aguilar Ferrer, Adrian Bennassar Polzin.
  */
 public class Cuenta {
-    private String cliente;
     private int numeroCuenta, saldo;
 
-    public Cuenta(String cliente, int numeroCuenta, int saldo) {
-        this.cliente = cliente;
+    public Cuenta( int numeroCuenta, int saldo) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
-    }
-
-    public String getCliente() {
-        return cliente;
     }
 
     public int getNumeroCuenta() {
@@ -26,7 +20,7 @@ public class Cuenta {
         return saldo;
     }
 
-    public void addSaldo(int tranf) throws ExceptionTransferencia {
+    public void añadirSaldo(int tranf) throws ExceptionTransferencia {
         if ((this.saldo+tranf)<0){
            throw new ExceptionTransferencia(); 
         }
