@@ -14,7 +14,7 @@ public class Cliente {
     public Cliente(String nombre, int saldo, int idCuenta) {
         this.nombre = nombre;
         this.cuentas = new Cuenta[1];
-        cuentas[0] = new Cuenta(saldo, idCuenta);
+        cuentas[0] = new Cuenta(idCuenta, saldo);
     }
 
     public String getNombre() {
