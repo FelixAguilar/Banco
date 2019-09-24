@@ -2,6 +2,8 @@ package Ventana;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,12 +12,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import megabanco.ExcepcionClienteNoEncontrado;
+import megabanco.ExceptionClienteExistente;
+import megabanco.MetodosyDatos;
 
 /**
  *
  * @author Felix Aguilar Ferrer, Adrian Bennassar Polzin, Alvaro Bueno Lopez.
  */
 public class Ventana extends JFrame {
+    
+    private static MetodosyDatos metodos;
     
     //Constantes del menú.
     private final String TITULO = "Banco";
@@ -28,6 +35,7 @@ public class Ventana extends JFrame {
     private final String SALIR = "Salir del banco";
     
     public static void main(String[] args) {
+        metodos = new MetodosyDatos();
         Ventana v = new Ventana();
         v.setVisible(true);
     }
@@ -193,8 +201,12 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
-                ErrorCrearCuentaVentana();
+                try {
+                    metodos.nuevoCliente(cliente.getText(),Integer.parseInt(fondos.getText()));
+                } catch (ExceptionClienteExistente ex) {
+                    ErrorCrearCuentaVentana();
+                }
+                frame.dispose();
             }
         });     
     }
@@ -244,7 +256,12 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
+                try {
+                    Popup(frame, metodos.apartado3(cliente.getText()));
+                } catch (ExcepcionClienteNoEncontrado ex) {
+                    Popup(frame, ex.getMessage());
+                }
+                frame.dispose();
             }
         });     
     }
