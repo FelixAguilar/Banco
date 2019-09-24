@@ -34,7 +34,7 @@ public class Cliente {
     }
     
     
-    private void redimensionarArray(boolean eliminar, int indice){
+    public void redimensionarArrayCuentas(boolean eliminar, int indice){
         
         if(eliminar){
             

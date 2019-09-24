@@ -17,6 +17,25 @@ public class MetodosyDatos {
     public MetodosyDatos() {
     };
     
+    public Cliente apartado2(int id) throws ExcepcionCuentaNoExiste {
+         Cliente cli = null;
+         boolean endBucle = false;
+         for (int i = 0; (i < clientes.length)&&(endBucle); i++) {
+            for (int j = 0; j < clientes[j].getCuentas().length; j++) {
+                if (clientes[i].getCuenta(j).getID() == id) {
+                   cli = new Cliente(clientes[i].getNombre(),clientes[i].getCuenta(j).getSaldo(),clientes[i].getCuenta(j).getID());
+                   endBucle = true;
+                }
+
+            }
+
+        }
+        if (cli == null) {
+            throw new ExcepcionCuentaNoExiste();
+        }
+        return cli;
+    }
+    
      public String apartado3(String nombreCliente) throws ExcepcionClienteNoEncontrado{
         String salida = null;
         int indice;
@@ -27,6 +46,15 @@ public class MetodosyDatos {
         }
         return salida;
     }
+     
+    public void apartado6(String nombreCliente, int idCuenta) throws ExcepcionClienteNoEncontrado, ExcepcionCuentaNoEncontrada{
+        int indice = buscarCliente(nombreCliente);
+        int indiceCuenta = encontrarCuenta(idCuenta, indice);
+        clientes[indice].redimensionarArrayCuentas(true, indiceCuenta);
+            if (clientes[indice].getCuentas().length == 0) {
+                redimensionarArrayCli(true, indice);
+            }
+    }
     
     private int buscarCliente(String nombreCliente) throws ExcepcionClienteNoEncontrado{
         for (int i = 0; i < clientes.length; i++) {
@@ -36,6 +64,15 @@ public class MetodosyDatos {
         }
         throw new ExcepcionClienteNoEncontrado();
    } 
+    
+    public int encontrarCuenta(int id, int indiceCliente) throws ExcepcionCuentaNoEncontrada{
+        for (int i = 0; i < 10; i++) {
+            if(clientes[indiceCliente].getCuentas()[i].getID() == id){
+                return i;
+            }
+        }
+        throw new ExcepcionCuentaNoEncontrada();
+    }
     
     public Cliente buscarCuenta(int id) throws ExcepcionCuentaNoExiste {
         Cliente cli = null;
