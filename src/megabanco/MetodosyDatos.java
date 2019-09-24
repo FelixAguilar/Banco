@@ -93,7 +93,7 @@ public class MetodosyDatos {
      * @throws ExceptionTransferencia
      * @throws ExcepcionCuentaNoEncontrada 
      */
-    public String apartado4y5(int ID, int sal, boolean añadir) throws ExceptionTransferencia, ExcepcionCuentaNoEncontrada{
+public String apartado4y5(int ID, int sal, boolean añadir) throws ExceptionTransferencia, ExcepcionCuentaNoEncontrada{
         if(sal<=0){
             throw new ExceptionTransferencia();
         }
@@ -106,12 +106,10 @@ public class MetodosyDatos {
                     sal=-sal;
                 }
                 clientes[i].getCuenta(ind).actualizarSaldo(sal);
-                return "El saldo de la cuenta " + ID + "es: " + sal;
+                return "El saldo de la cuenta " + ID + "es: " + clientes[i].getCuenta(ind).getSaldo();
             } catch (ExcepcionCuentaNoEncontrada ex) {}
         }
-        if(!fin){
             throw new ExcepcionCuentaNoEncontrada();
-        }
     }
     
     /**
