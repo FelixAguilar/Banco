@@ -118,11 +118,9 @@ public class MetodosyDatos {
     }
 
     /*Método para crear un nuevo cliente*/
-    public Cliente nuevoCliente(String nom, int sal) {
+        public Cliente nuevoCliente(String nom, int sal) throws ExceptionClienteExistente {
         int idIni = posCli;
         Cliente cli = new Cliente(nom, sal, idIni);
-
-        try {
             redimensionarArrayCli(false, 1);
             if (hayClientes()) {
                 if (clienteExistente(nom)) {
@@ -131,9 +129,6 @@ public class MetodosyDatos {
             }
             clientes[posCli] = cli;
             posCli++;
-        } catch (ExceptionClienteExistente e) {
-            System.out.println("\nERROR: Cliente Existente!");
-        }
         return cli;
 
     }
