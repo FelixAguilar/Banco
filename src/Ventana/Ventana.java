@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import megabanco.ExcepcionClienteNoEncontrado;
-import megabanco.ExceptionClienteExistente;
+import megabanco.ExcepcionCuentaNoEncontrada;
+import megabanco.ExceptionTransferencia;
 import megabanco.MetodosyDatos;
 
 /**
@@ -201,11 +202,7 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                try {
-                    metodos.nuevoCliente(cliente.getText(),Integer.parseInt(fondos.getText()));
-                } catch (ExceptionClienteExistente ex) {
-                    ErrorCrearCuentaVentana();
-                }
+                Popup(frame,metodos.apartado1(cliente.getText(),Integer.parseInt(fondos.getText())));
                 frame.dispose();
             }
         });     
@@ -258,10 +255,10 @@ public class Ventana extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
                 try {
                     Popup(frame, metodos.apartado3(cliente.getText()));
+                    frame.dispose();
                 } catch (ExcepcionClienteNoEncontrado ex) {
                     Popup(frame, ex.getMessage());
-                }
-                frame.dispose();
+                }              
             }
         });     
     }
@@ -311,7 +308,13 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
+//                try{
+//                Popup(frame, metodos.apartado2(Integer.parseInt(cuenta.getText())));
+                    frame.dispose();
+//                }
+//                catch(ExcepcionCuentaNoExiste ex){
+//                    Popup(frame, ex.getmessage());
+//                }
             }
         });     
     }
@@ -370,7 +373,11 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
+                try {
+                    Popup(frame, metodos.apartado4y5(Integer.parseInt(cuenta.getText()), Integer.parseInt(fondos.getText()), true));
+                } catch (ExceptionTransferencia | ExcepcionCuentaNoEncontrada ex) {
+                    Popup(frame, ex.getMessage());
+                }
             }
         });     
     }
@@ -429,7 +436,11 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
+                try {
+                    Popup(frame, metodos.apartado4y5(Integer.parseInt(cuenta.getText()), Integer.parseInt(fondos.getText()), false));
+                } catch (ExceptionTransferencia | ExcepcionCuentaNoEncontrada ex) {
+                    Popup(frame, ex.getMessage());
+                }
             }
         });     
     }
@@ -488,57 +499,12 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
-                Popup(frame, "Eliminada");
-            }
-        });     
-    }
-    
-    private void ErrorCrearCuentaVentana(){
-        
-        JFrame frame = nuevaVentana("Error");
-        
-        JPanel menu = new JPanel();
-        menu.setBorder(new EmptyBorder(10, 10, 10, 10));
-        menu.setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        JPanel entrada = new JPanel(new GridBagLayout());
-        
-        JPanel linea1 = new JPanel();
-        linea1.setLayout(new BoxLayout(linea1, BoxLayout.X_AXIS));
-        JPanel linea2 = new JPanel();
-        linea2.setLayout(new BoxLayout(linea2, BoxLayout.X_AXIS));
-        
-        
-        //Campo de texto para Nombre de la cuenta y label de este.
-        JLabel info = new JLabel("<html><body>Ya existe un usuariocon este nombre,<br>quieres añadirle esta cuenta?</body></html>");
-        linea1.add(info);
-        
-        //Botones.
-        JButton botonAceptar = new JButton();
-        botonAceptar.setText("Aceptar");
-        linea2.add(botonAceptar);
-        linea2.add(botonRetroceder(frame));
-        
-        //Adición de componentes a la pantalla.
-        entrada.add(linea1, gbc);
-        entrada.add(linea2, gbc);
-        
-        gbc.weighty = 1;
-        menu.add(entrada, gbc);
-        frame.add(menu);
-        frame.pack();
-        
-        //Escuchadores de eventos.
-        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) { 
-                //Añadir metodo a ejecutar.
+                try {
+                    Popup(frame, metodos.apartado6(cliente.getText(), Integer.parseInt(cuenta.getText())));
+                    frame.dispose();
+                } catch (ExcepcionClienteNoEncontrado | ExcepcionCuentaNoEncontrada ex) {
+                    Popup(frame, ex.getMessage());
+                }
             }
         });     
     }
