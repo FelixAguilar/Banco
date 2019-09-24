@@ -29,6 +29,11 @@ public class Cliente {
         this.cuentas = cuentas;
     }
     
+     public Cuenta getCuenta(int indice){
+        return cuentas[indice];
+    }
+    
+    
     private void redimensionarArray(boolean eliminar, int indice){
         
         if(eliminar){

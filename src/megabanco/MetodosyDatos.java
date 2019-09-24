@@ -17,6 +17,25 @@ public class MetodosyDatos {
     public MetodosyDatos() {
     };
     
+     public String apartado3(String nombreCliente) throws ExcepcionClienteNoEncontrado{
+        String salida = null;
+        int indice;
+        indice = buscarCliente(nombreCliente);
+        for (int i = 0; i < clientes[indice].getCuentas().length; i++) {
+            salida += "Cuenta " + clientes[indice].getCuenta(i).getID() + ": Saldo: " + 
+                    clientes[indice].getCuenta(i).getSaldo() + "\n";
+        }
+        return salida;
+    }
+    
+    private int buscarCliente(String nombreCliente) throws ExcepcionClienteNoEncontrado{
+        for (int i = 0; i < clientes.length; i++) {
+            if (clientes[i].getNombre().equals(nombreCliente)) {
+                return i;
+            }
+        }
+        throw new ExcepcionClienteNoEncontrado();
+   } 
     
     public Cliente buscarCuenta(int id) throws ExcepcionCuentaNoExiste {
         Cliente cli = null;
