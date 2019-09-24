@@ -112,22 +112,25 @@ public String apartado4y5(int ID, int sal, boolean añadir) throws ExceptionTran
             throw new ExcepcionCuentaNoEncontrada();
     }
     
-    /**
+/**
      * Método dada una cuenta borra esta, y si el cliente se queda sin cuentas
      * borra el cliente también.
      * 
      * @param nombreCliente
      * @param idCuenta
+     * @return 
      * @throws ExcepcionClienteNoEncontrado
      * @throws ExcepcionCuentaNoEncontrada 
      */
-    public void apartado6(String nombreCliente, int idCuenta) throws ExcepcionClienteNoEncontrado, ExcepcionCuentaNoEncontrada {
+    public String apartado6(String nombreCliente, int idCuenta) throws ExcepcionClienteNoEncontrado, ExcepcionCuentaNoEncontrada {
         int indice = buscarCliente(nombreCliente);
         int indiceCuenta = buscarCuenta(idCuenta, indice);
         clientes[indice].redimensionarArrayCuentas(true, indiceCuenta);
         if (clientes[indice].getCuentas().length == 0) {
             redimensionarArrayCli(true, indice);
+            return "El cliente ha sido borrado con éxito";
         }
+        return "La cuenta ha sido borrado con éxito";
     }
     
     /**
