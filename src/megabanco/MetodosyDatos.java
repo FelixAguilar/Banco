@@ -200,7 +200,7 @@ public String apartado4y5(int ID, int sal, boolean añadir) throws ExceptionTran
             Cliente[] temporal = new Cliente[this.clientes.length - 1];
 
             for (int i = 0; i < temporal.length; i++) {
-                if (indice < i) {
+                if (indice > i) {
                     temporal[i] = this.clientes[i];
                 } else {
                     temporal[i] = this.clientes[i + 1];
