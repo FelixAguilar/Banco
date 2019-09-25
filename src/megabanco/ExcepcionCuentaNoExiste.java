@@ -9,6 +9,6 @@ package megabanco;
  *
  * @author iespa
  */
-class ExcepcionCuentaNoExiste extends Exception {
+public class ExcepcionCuentaNoExiste extends Exception {
     
 }
