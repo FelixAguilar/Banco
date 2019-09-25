@@ -2,8 +2,6 @@ package Ventana;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,18 +10,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import megabanco.ExcepcionClienteNoEncontrado;
-import megabanco.ExcepcionCuentaNoEncontrada;
-import megabanco.ExceptionTransferencia;
-import megabanco.MetodosyDatos;
 
 /**
  *
  * @author Felix Aguilar Ferrer, Adrian Bennassar Polzin, Alvaro Bueno Lopez.
  */
 public class Ventana extends JFrame {
-    
-    private static MetodosyDatos metodos;
     
     //Constantes del menú.
     private final String TITULO = "Banco";
@@ -36,7 +28,6 @@ public class Ventana extends JFrame {
     private final String SALIR = "Salir del banco";
     
     public static void main(String[] args) {
-        metodos = new MetodosyDatos();
         Ventana v = new Ventana();
         v.setVisible(true);
     }
@@ -202,8 +193,8 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                Popup(frame,metodos.apartado1(cliente.getText(),Integer.parseInt(fondos.getText())));
-                frame.dispose();
+                //Añadir metodo a ejecutar.
+                ErrorCrearCuentaVentana();
             }
         });     
     }
@@ -253,12 +244,7 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                try {
-                    Popup(frame, metodos.apartado3(cliente.getText()));
-                    frame.dispose();
-                } catch (ExcepcionClienteNoEncontrado ex) {
-                    Popup(frame, ex.getMessage());
-                }              
+                //Añadir metodo a ejecutar.
             }
         });     
     }
@@ -308,13 +294,7 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-//                try{
-//                Popup(frame, metodos.apartado2(Integer.parseInt(cuenta.getText())));
-                    frame.dispose();
-//                }
-//                catch(ExcepcionCuentaNoExiste ex){
-//                    Popup(frame, ex.getmessage());
-//                }
+                //Añadir metodo a ejecutar.
             }
         });     
     }
@@ -373,11 +353,7 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                try {
-                    Popup(frame, metodos.apartado4y5(Integer.parseInt(cuenta.getText()), Integer.parseInt(fondos.getText()), true));
-                } catch (ExceptionTransferencia | ExcepcionCuentaNoEncontrada ex) {
-                    Popup(frame, ex.getMessage());
-                }
+                //Añadir metodo a ejecutar.
             }
         });     
     }
@@ -436,11 +412,7 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                try {
-                    Popup(frame, metodos.apartado4y5(Integer.parseInt(cuenta.getText()), Integer.parseInt(fondos.getText()), false));
-                } catch (ExceptionTransferencia | ExcepcionCuentaNoEncontrada ex) {
-                    Popup(frame, ex.getMessage());
-                }
+                //Añadir metodo a ejecutar.
             }
         });     
     }
@@ -499,12 +471,57 @@ public class Ventana extends JFrame {
         //Escuchadores de eventos.
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) { 
-                try {
-                    Popup(frame, metodos.apartado6(cliente.getText(), Integer.parseInt(cuenta.getText())));
-                    frame.dispose();
-                } catch (ExcepcionClienteNoEncontrado | ExcepcionCuentaNoEncontrada ex) {
-                    Popup(frame, ex.getMessage());
-                }
+                //Añadir metodo a ejecutar.
+                Popup(frame, "Eliminada");
+            }
+        });     
+    }
+    
+    private void ErrorCrearCuentaVentana(){
+        
+        JFrame frame = nuevaVentana("Error");
+        
+        JPanel menu = new JPanel();
+        menu.setBorder(new EmptyBorder(10, 10, 10, 10));
+        menu.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        JPanel entrada = new JPanel(new GridBagLayout());
+        
+        JPanel linea1 = new JPanel();
+        linea1.setLayout(new BoxLayout(linea1, BoxLayout.X_AXIS));
+        JPanel linea2 = new JPanel();
+        linea2.setLayout(new BoxLayout(linea2, BoxLayout.X_AXIS));
+        
+        
+        //Campo de texto para Nombre de la cuenta y label de este.
+        JLabel info = new JLabel("<html><body>Ya existe un usuariocon este nombre,<br>quieres añadirle esta cuenta?</body></html>");
+        linea1.add(info);
+        
+        //Botones.
+        JButton botonAceptar = new JButton();
+        botonAceptar.setText("Aceptar");
+        linea2.add(botonAceptar);
+        linea2.add(botonRetroceder(frame));
+        
+        //Adición de componentes a la pantalla.
+        entrada.add(linea1, gbc);
+        entrada.add(linea2, gbc);
+        
+        gbc.weighty = 1;
+        menu.add(entrada, gbc);
+        frame.add(menu);
+        frame.pack();
+        
+        //Escuchadores de eventos.
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) { 
+                //Añadir metodo a ejecutar.
             }
         });     
     }
