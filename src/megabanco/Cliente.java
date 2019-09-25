@@ -40,7 +40,7 @@ public class Cliente {
             Cuenta[] temporal = new Cuenta[this.cuentas.length - 1];
 
             for (int i = 0; i < temporal.length; i++) {
-                if (indice < i) {
+                if (indice > i) {
                     temporal[i] = this.cuentas[i];
                 } else {
                     temporal[i] = this.cuentas[i + 1];
