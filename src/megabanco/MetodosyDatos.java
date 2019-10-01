@@ -50,7 +50,7 @@ public class MetodosyDatos {
      */
     public String apartado2(int id) throws ExcepcionCuentaNoExiste {
         for (Cliente cliente : clientes) {
-            for (int j = 0; j < clientes[j].getCuentas().length; j++) {
+            for (int j = 0; j < cliente.getCuentas().length; j++) {
                 if (cliente.getCuenta(j).getID() == id) {
                     return "Nombre: " + cliente.getNombre() + "\nSaldo: " + 
                             cliente.getCuenta(j).getSaldo() + "\nCuenta: " + 
@@ -85,6 +85,7 @@ public class MetodosyDatos {
      * @param ID
      * @param sal
      * @param añadir
+     * @return 
      * @throws ExceptionTransferencia
      * @throws ExcepcionCuentaNoEncontrada 
      */
@@ -102,8 +103,7 @@ public class MetodosyDatos {
                 return "El saldo de la cuenta " + ID + " es: " + clientes[i].getCuenta(ind).getSaldo();
             } catch (ExcepcionCuentaNoEncontrada ex) {}
         }
-       //throw new ExcepcionCuentaNoEncontrada();
-       return "falla aqui.";
+       throw new ExcepcionCuentaNoEncontrada();
     }
     
     /**
