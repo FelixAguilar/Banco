@@ -10,5 +10,7 @@ package megabanco;
  * @author iespa
  */
 public class ExcepcionCuentaNoExiste extends Exception {
-    
+    public ExcepcionCuentaNoExiste() {
+        super ("La cuenta no existe en la base de datos.");
+    }
 }
