@@ -12,6 +12,6 @@ package megabanco;
 public class ExcepcionCuentaNoEncontrada extends Exception{
     
         public ExcepcionCuentaNoEncontrada() {
-            super("Cliente no encontrado en la base de datos");
+            super("Cuenta no encontrada en la base de datos");
     } 
 }
